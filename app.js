@@ -30,6 +30,7 @@ const showImages = (images) => {
 }
 
 const getImages = (query) => {
+  gallery.innerHTML = ""; //reset gallery
   displayLoading(document.getElementById("loading"));
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
@@ -46,6 +47,7 @@ const displaySearchImage = (data) => {
   }
   // showing error message
   else {
+    gallery.innerHTML = ""; // reset the gallery
     document.getElementById("error-message").innerHTML = `
       <div class="alert alert-danger">
          No Data Found. Try again.
@@ -56,7 +58,6 @@ const displaySearchImage = (data) => {
 }
 
 const displayLoading = (elementLoad) => {
-
   elementLoad.classList.toggle("hidden");
 }
 
