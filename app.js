@@ -48,13 +48,14 @@ const displaySearchImage = (data) => {
   // showing error message
   else {
     gallery.innerHTML = ""; // reset the gallery
-    document.getElementById("error-message").innerHTML = `
-      <div class="alert alert-danger">
-         No Data Found. Try again.
-      </div>
-    `;
+    errorMessage("Do not find data. Try again");
   }
   displayLoading(document.getElementById("loading"));
+}
+
+// error message show
+const errorMessage = (message)=>{
+  document.getElementById("error-message").innerHTML = `<div class="alert alert-danger">${message}</div>`;
 }
 
 const displayLoading = (elementLoad) => {
@@ -73,7 +74,7 @@ const selectItem = (event, img) => {
     // unselect a image
     sliders = sliders.filter((element, index, newSliders) => index != newSliders.indexOf(img));
     element.classList.remove("added");
-    // alert('Hey, Already added !')
+    
   }
 }
 var timer
@@ -172,6 +173,10 @@ sliderBtn.addEventListener('click', function () {
   // check for negative or 0 value of the timer
   if (parseInt(document.getElementById("duration").value) <= 0) {
     alert("Duration time can't negative or zero");
+    return;
+  }
+  else if(isNaN(parseInt(document.getElementById("duration").value))){
+    errorMessage("Duration must be number.");
     return;
   }
   createSlider()
